@@ -19,4 +19,4 @@ A simple React-based to-do list that helps you track tasks and build React skill
 git clone https://github.com/Tassnim-AbouZaid/todo-app-react.git
 cd todo-app-react
 npm install
-npm run dev
+npm run dev  # Starts the local dev server
