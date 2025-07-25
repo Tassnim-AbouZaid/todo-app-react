@@ -9,7 +9,13 @@ function App() {
   useEffect(() => {
     fetch('http://localhost:5000/api/tasks') 
       .then((res) => res.json())
-      .then((data) => setTasks(data))
+      .then((data) => {
+        const formattedTasks = data.map(task => ({
+          ...task,
+          text: task.title, // 🛠️ Map 'title' to 'text'
+        }));
+        setTasks(formattedTasks);
+      })
       .catch((err) => console.error('❌ Error fetching tasks:', err));
   }, []);
 
