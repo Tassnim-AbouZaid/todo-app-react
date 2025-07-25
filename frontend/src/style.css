@@ -1,0 +1,57 @@
+/* App.css */
+
+.app-container {
+    padding: 20px;
+    font-family: sans-serif;
+  }
+  
+  h1 {
+    margin-bottom: 10px;
+  }
+  
+  .task-counter {
+    margin-bottom: 15px;
+  }
+  
+  .input-section {
+    margin-bottom: 15px;
+  }
+  
+  .input-section input {
+    padding: 8px;
+    width: 200px;
+    margin-right: 8px;
+  }
+  
+  .button {
+    margin: 5px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .button-active {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .filter-buttons {
+    margin-bottom: 15px;
+  }
+  
+  .task-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .task-item {
+    margin-bottom: 10px;
+  }
+  
+  .task-item span {
+    margin-left: 8px;
+  }
+  

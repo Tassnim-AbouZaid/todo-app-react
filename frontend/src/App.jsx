@@ -1,3 +1,4 @@
+import './App.css';
 import { useState, useEffect } from 'react';
 
 function App() {
@@ -43,68 +44,48 @@ function App() {
     return true;
   });
 
-  const buttonStyle = {
-    margin: '5px',
-    padding: '6px 12px',
-    borderRadius: '6px',
-    border: '1px solid #ccc',
-    backgroundColor: '#f0f0f0',
-    cursor: 'pointer',
-    fontWeight: 'bold'
-  };
-
-  const activeButtonStyle = {
-    ...buttonStyle,
-    backgroundColor: '#007bff',
-    color: 'white'
-  };
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'sans-serif' }}>
+    <div className="app-container">
       <h1>📝 Tassnim's To-Do List</h1>
 
-      {/* Task Completion Counter */}
-      <h2>
+      <h2 className="task-counter">
         ✅ Completed: {tasks.filter(task => task.completed).length} / {tasks.length}
       </h2>
 
-      {/* Input + Add Button */}
-      <div style={{ marginBottom: '15px' }}>
+      <div className="input-section">
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="New Task"
-          style={{ padding: '8px', width: '200px', marginRight: '8px' }}
         />
-        <button style={buttonStyle} onClick={addTask}>➕ Add</button>
+        <button className="button" onClick={addTask}>➕ Add</button>
       </div>
 
-      {/* Filter Buttons */}
-      <div style={{ marginBottom: '15px' }}>
+      <div className="filter-buttons">
         <button
           onClick={() => setFilter('all')}
-          style={filter === 'all' ? activeButtonStyle : buttonStyle}
+          className={`button ${filter === 'all' ? 'button-active' : ''}`}
         >
           All
         </button>
         <button
           onClick={() => setFilter('completed')}
-          style={filter === 'completed' ? activeButtonStyle : buttonStyle}
+          className={`button ${filter === 'completed' ? 'button-active' : ''}`}
         >
           Completed
         </button>
         <button
           onClick={() => setFilter('incomplete')}
-          style={filter === 'incomplete' ? activeButtonStyle : buttonStyle}
+          className={`button ${filter === 'incomplete' ? 'button-active' : ''}`}
         >
           Incomplete
         </button>
       </div>
 
-      {/* Task List */}
-      <ul style={{ listStyle: 'none', padding: 0 }}>
-        {Tasks.map(task => (
-          <li key={task.id} style={{ marginBottom: '10px' }}>
+      <ul className="task-list">
+        {filteredTasks.map(task => (
+          <li key={task.id} className="task-item">
             <label>
               <input
                 type="checkbox"
@@ -112,10 +93,9 @@ function App() {
                 onChange={() => toggleComplete(task.id)}
               />
               <span style={{
-                textDecoration: task.completed ? 'line-through' : 'none',
-                marginLeft: '8px'
+                textDecoration: task.completed ? 'line-through' : 'none'
               }}>
-               ✅ {task.title}  - {task.completed ? 'Done' : 'Pending'}
+                ✅ {task.text} - {task.completed ? 'Done' : 'Pending'}
               </span>
             </label>
           </li>
