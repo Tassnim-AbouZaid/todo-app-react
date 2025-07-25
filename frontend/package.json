@@ -1,11 +1,13 @@
 {
-  "name": "client",
+  "name": "frontend",
   "version": "1.0.0",
-  "type": "module",
+  "description": "React ToDo App Frontend",
   "private": true,
-  "main": "src/index.js",
+  "type": "module",
+  "main": "src/index.jsx",
   "scripts": {
     "dev": "vite",
+    "start": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
