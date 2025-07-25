@@ -9,13 +9,7 @@ function App() {
   useEffect(() => {
     fetch('http://localhost:5000/api/tasks') 
       .then((res) => res.json())
-      .then((data) => {
-        const formattedTasks = data.map(task => ({
-          ...task,
-          text: task.title, // 🛠️ Map 'title' to 'text'
-        }));
-        setTasks(formattedTasks);
-      })
+      .then((data) => setTasks(data))
       .catch((err) => console.error('❌ Error fetching tasks:', err));
   }, []);
 
@@ -103,7 +97,7 @@ function App() {
 
       {/* Task List */}
       <ul style={{ listStyle: 'none', padding: 0 }}>
-        {filteredTasks.map(task => (
+        {Tasks.map(task => (
           <li key={task.id} style={{ marginBottom: '10px' }}>
             <label>
               <input
@@ -115,7 +109,7 @@ function App() {
                 textDecoration: task.completed ? 'line-through' : 'none',
                 marginLeft: '8px'
               }}>
-                {task.title}
+               ✅ {task.title}  - {task.completed ? 'Done' : 'Pending'}
               </span>
             </label>
           </li>

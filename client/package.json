@@ -4,13 +4,19 @@
   "private": true,
   "main": "src/index.js",
   "scripts": {
-    "start": "parcel public/index.html --port 3000"
+    "start": "parcel public/index.html --port 3000",
+    "build": "parcel build public/index.html"
   },
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "parcel": "^2.9.3"
-  }
+    "parcel": "^2.9.3",
+    "@babel/core": "^7.22.10",
+    "@babel/preset-react": "^7.22.5"
+  },
+  "browserslist": [
+    "last 1 chrome version"
+  ]
 }
