@@ -12,6 +12,7 @@ app.get('/', (req, res) => {
   res.send('🚀 Backend is running!');
 });
 app.get('/api/tasks', (req, res) => {
+  console.log('✅ /api/tasks was hit');
     res.json ([
       { id: 1, title: 'Learn React', completed: true },
       { id: 2, title: 'Build a project', completed: false },

@@ -54,4 +54,7 @@
   .task-item span {
     margin-left: 8px;
   }
+  .body {
+    background-color: pink; /* This is just for debug */
+  }
   
