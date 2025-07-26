@@ -1,6 +1,7 @@
 // backend/server.js
 const express = require('express');
 const cors = require('cors');
+const chalk = require('chalk');
 const app = express();
 const PORT = 5000;
 
@@ -19,6 +20,5 @@ app.get('/api/tasks', (req, res) => {
     ]);
   });
 app.listen(PORT, () => {
-  const chalk = require('chalk');
 console.log(chalk.green(`✅ Server running on http://localhost:${PORT}`));
 });
