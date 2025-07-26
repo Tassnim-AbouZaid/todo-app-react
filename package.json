@@ -2,12 +2,12 @@
   "name": "todo-app-react",
   "version": "1.0.0",
   "private": true,
-  "description": "[Edit in StackBlitz next generation editor ⚡️](https://stackblitz.com/~/github.com/Tassnim-AbouZaid/todo-app-react)",
+  "description": "Fullstack Todo App",
   "main": "backend/server.js",
   "scripts": {
     "postinstall":"cd backend && npm install && cd ../frontend && npm install",
     "start": "concurrently \"npm run server\" \"npm run frontend\"",
-    "server": "cd backend && npm start",
+    "server": "cd backend && node server.js",
     "frontend": "cd frontend && npm start"
 },
   "devDependencies": {

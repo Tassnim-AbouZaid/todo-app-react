@@ -19,5 +19,6 @@ app.get('/api/tasks', (req, res) => {
     ]);
   });
 app.listen(PORT, () => {
-  console.log(`✅ Server running on http://localhost:${PORT}`);
+  const chalk = require('chalk');
+console.log(chalk.green(`✅ Server running on http://localhost:${PORT}`));
 });
