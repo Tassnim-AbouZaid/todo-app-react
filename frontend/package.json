@@ -1,5 +1,5 @@
 {
-  "name": "frontend",
+  "name": "todo-frontend",
   "version": "1.0.0",
   "description": "React ToDo App Frontend",
   "private": true,
