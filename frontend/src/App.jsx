@@ -8,18 +8,23 @@ function App() {
 
   // 🔁 Fetch tasks from Express backend
   useEffect(() => {
-    fetch('http://localhost:5000/api/tasks') 
-      .then((res) => res.json())
-      .then((data) => {
+    const fetchTasks = async () => {
+      try {
+        const res = await fetch('/api/tasks');
+        const data = await res.json();
         const formattedTasks = data.map(task => ({
           ...task,
           text: task.title, // 🛠️ Map 'title' to 'text'
         }));
         setTasks(formattedTasks);
-      })
-      .catch((err) => console.error('❌ Error fetching tasks:', err));
+      } 
+      catch (err) {console.error('❌ Error fetching tasks:', err);
+      }
+    };
+  
+    fetchTasks();
   }, []);
-
+  
   const addTask = () => {
     if (input.trim()) {
       const newTask = {

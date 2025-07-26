@@ -1,7 +1,7 @@
 // backend/server.js
-const express = require('express');
-const cors = require('cors');
-const chalk = require('chalk');
+import express from 'express';
+import cors from 'cors';
+import chalk from 'chalk';
 const app = express();
 const PORT = 5000;
 
