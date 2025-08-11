@@ -25,24 +25,52 @@ function App() {
     fetchTasks();
   }, []);
   
-  const addTask = () => {
-    if (input.trim()) {
-      const newTask = {
-        id: Date.now(),
-        text: input.trim(),
-        completed: false
-      };
-      setTasks([...tasks, newTask]);
+   // Add task and send to backend
+   const addTask = async () => {
+    if (!input.trim()) return;
+
+    try {
+      const res = await fetch('/api/tasks', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: input.trim() })
+      });
+
+      const newTask = await res.json();
+      setTasks(prev => [...prev, { ...newTask, text: newTask.title }]);
       setInput('');
+    } catch (err) {
+      console.error('❌ Error adding task:', err);
     }
   };
 
-  const toggleComplete = (id) => {
-    setTasks(tasks.map(task =>
-      task.id === id ? { ...task, completed: !task.completed } : task
-    ));
+  // Toggle complete on backend
+  const toggleComplete = async (id, completed) => {
+    try {
+      const res = await fetch(`/api/tasks/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ completed: !completed })
+      });
+
+      const updated = await res.json();
+      setTasks(prev =>
+        prev.map(task => task.id === id ? { ...updated, text: updated.title } : task)
+      );
+    } catch (err) {
+      console.error('❌ Error updating task:', err);
+    }
   };
 
+  // Delete task from backend
+  const deleteTask = async (id) => {
+    try {
+      await fetch(`/api/tasks/${id}`, { method: 'DELETE' });
+      setTasks(prev => prev.filter(task => task.id !== id));
+    } catch (err) {
+      console.error('❌ Error deleting task:', err);
+    }
+  };
   const filteredTasks = tasks.filter(task => {
     if (filter === 'completed') return task.completed;
     if (filter === 'incomplete') return !task.completed;
@@ -95,14 +123,23 @@ function App() {
               <input
                 type="checkbox"
                 checked={task.completed}
-                onChange={() => toggleComplete(task.id)}
-              />
-              <span style={{
-                textDecoration: task.completed ? 'line-through' : 'none'
-              }}>
-                ✅ {task.text} - {task.completed ? 'Done' : 'Pending'}
+                onChange={() => toggleComplete(task.id, task.completed)}
+                />
+                <span style={{
+                  textDecoration: task.completed ? 'line-through' : 'none',
+                  cursor: 'pointer'
+                }}>
+                 {task.text} - {task.completed ? 'Done' : 'Pending'}
               </span>
             </label>
+            
+            <button>
+              className="button button-delete"
+              style={{ marginLeft: '10px' }}
+              onClick={() => deleteTask(task.id)}
+              ❌ Delete
+            </button>
+            
           </li>
         ))}
       </ul>
