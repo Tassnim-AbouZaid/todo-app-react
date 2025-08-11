@@ -8,8 +8,10 @@ function App() {
 
   // 🔁 Fetch tasks from Express backend
   useEffect(() => {
-    const fetchTasks = async () => {
-      try {
+    fetchTasks();
+  }, []);
+        const fetchTasks = async () => {
+          try {
         const res = await fetch('/api/tasks');
         const data = await res.json();
         const formattedTasks = data.map(task => ({
@@ -18,12 +20,10 @@ function App() {
         }));
         setTasks(formattedTasks);
       } 
-      catch (err) {console.error('❌ Error fetching tasks:', err);
+        catch (err) {console.error('❌ Error fetching tasks:', err);
       }
     };
   
-    fetchTasks();
-  }, []);
   
    // Add task and send to backend
    const addTask = async () => {

@@ -2,6 +2,7 @@
 import express from 'express';
 import cors from 'cors';
 import chalk from 'chalk';
+
 const app = express();
 const PORT = 5000;
 
@@ -47,15 +48,12 @@ app.post('/api/tasks', (req, res) => {
 app.patch('/api/tasks/:id', (req, res) => {
   const id = parseInt(req.params.id);
   const { title, completed } = req.body;
-  const task = tasks.find(t => t.id === id);
-
+  const task = tasks.find((t) => t.id === id);
   if (!task) {
     return res.status(404).json({ error: 'Task not found' });
   }
-
   if (title !== undefined) task.title = title;
   if (completed !== undefined) task.completed = completed;
-
   console.log(chalk.yellow(`Task updated: ID ${id}`));
   res.json(task);
 });
@@ -63,18 +61,16 @@ app.patch('/api/tasks/:id', (req, res) => {
 // ✅ DELETE task
 app.delete('/api/tasks/:id', (req, res) => {
   const id = parseInt(req.params.id);
-  const index = tasks.findIndex(t => t.id === id);
-
+  const index = tasks.findIndex((t) => t.id === id);
   if (index === -1) {
     return res.status(404).json({ error: 'Task not found' });
   }
-
   const deleted = tasks.splice(index, 1);
   console.log(chalk.red(`Task deleted: ID ${id}`));
   res.json(deleted[0]);
 });
 
-  // Start server
+// Start server
 app.listen(PORT, () => {
 console.log(chalk.green(`✅ Server running on http://localhost:${PORT}`));
 });

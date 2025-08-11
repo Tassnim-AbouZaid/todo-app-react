@@ -38,6 +38,12 @@
     color: white;
   }
   
+  .button-delete {
+    background-color: red;
+    color: white;
+  }
+
+
   .filter-buttons {
     margin-bottom: 15px;
   }
@@ -55,10 +61,7 @@
     margin-left: 8px;
   }
 
-  .button-delete {
-    background-color: red;
-    color: white;
-  }
+  
   .body {
     background-color: pink; /* This is just for debug */
   }
