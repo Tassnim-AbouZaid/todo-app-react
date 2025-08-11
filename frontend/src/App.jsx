@@ -19,10 +19,11 @@ function App() {
           text: task.title, // 🛠️ Map 'title' to 'text'
         }));
         setTasks(formattedTasks);
-      } 
-        catch (err) {console.error('❌ Error fetching tasks:', err);
+      } catch (err) {
+        console.error('❌ Error fetching tasks:', err);
       }
     };
+  
   
   
    // Add task and send to backend
