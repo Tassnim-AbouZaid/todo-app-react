@@ -10,10 +10,10 @@ const PORT = 5000;
 app.use(cors());
 app.use(express.json());
 
-// Fake in-memory DB
+// Temporary in-memory tasks (replace with DB Later)
 let tasks = [
   { id: 1, title: 'Learn React', completed: true },
-  { id: 2, title: 'Build a project', completed: false }
+  { id: 2, title: 'Build a project', completed: false },
 ];
 
 // Test route
@@ -23,8 +23,7 @@ app.get('/', (req, res) => {
 
 // ✅ GET all tasks
 app.get('/api/tasks', (req, res) => {
-  console.log('✅ /api/tasks was hit');
-  console.log(chalk.blue('GET /api/tasks'));
+  console.log(chalk.blue('✅ /api/tasks was hit'));
   res.json(tasks);
 });
 
@@ -35,18 +34,18 @@ app.post('/api/tasks', (req, res) => {
     return res.status(400).json({ error: 'Title is required' });
   }
   const newTask = {
-    id: tasks.length ? tasks[tasks.length - 1].id + 1 : 1,
+    id: Date.now(),
     title,
-    completed: false
+    completed: false,
   };
   tasks.push(newTask);
   console.log(chalk.green(`Task added: ${title}`));
   res.status(201).json(newTask);
 });
 
-// ✅ PATCH update task
-app.patch('/api/tasks/:id', (req, res) => {
-  const id = parseInt(req.params.id);
+// ✅ Put update task completion or title
+app.put('/api/tasks/:id', (req, res) => {
+  const taskId = parseInt(req.params.id);
   const { title, completed } = req.body;
   const task = tasks.find((t) => t.id === id);
   if (!task) {
@@ -58,9 +57,9 @@ app.patch('/api/tasks/:id', (req, res) => {
   res.json(task);
 });
 
-// ✅ DELETE task
+// ✅ DELETE remove a task
 app.delete('/api/tasks/:id', (req, res) => {
-  const id = parseInt(req.params.id);
+  const taskIdId = parseInt(req.params.id);
   const index = tasks.findIndex((t) => t.id === id);
   if (index === -1) {
     return res.status(404).json({ error: 'Task not found' });

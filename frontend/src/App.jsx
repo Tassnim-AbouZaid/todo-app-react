@@ -14,11 +14,7 @@ function App() {
           try {
         const res = await fetch('/api/tasks');
         const data = await res.json();
-        const formattedTasks = data.map(task => ({
-          ...task,
-          text: task.title, // 🛠️ Map 'title' to 'text'
-        }));
-        setTasks(formattedTasks);
+        setTasks(data);
       } catch (err) {
         console.error('❌ Error fetching tasks:', err);
       }
@@ -26,38 +22,37 @@ function App() {
   
   
   
-   // Add task and send to backend
+   // ➕ Add task and send to backend
    const addTask = async () => {
-    if (!input.trim()) return;
+    if (!input.trim()) {
 
     try {
       const res = await fetch('/api/tasks', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title: input.trim() })
+        body: JSON.stringify({ title: input.trim() }),
       });
 
       const newTask = await res.json();
-      setTasks(prev => [...prev, { ...newTask, text: newTask.title }]);
+      setTasks([...tasks, newTask]);
       setInput('');
-    } catch (err) {
+     } catch (err) {
       console.error('❌ Error adding task:', err);
-    }
+     }
+   } 
   };
 
-  // Toggle complete on backend
-  const toggleComplete = async (id, completed) => {
+  // 🔄 Toggle complete on backend
+  const toggleComplete = async (id, currentStatus) => {
     try {
       const res = await fetch(`/api/tasks/${id}`, {
-        method: 'PATCH',
+        method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ completed: !completed })
+        body: JSON.stringify({ completed: !currentStatus })
       });
 
-      const updated = await res.json();
-      setTasks(prev =>
-        prev.map(task => task.id === id ? { ...updated, text: updated.title } : task)
-      );
+      const updatedTask = await res.json();
+      setTasks(tasks.map(task => task.id === id ? updatedTask : task));
     } catch (err) {
       console.error('❌ Error updating task:', err);
     }
@@ -66,8 +61,10 @@ function App() {
   // Delete task from backend
   const deleteTask = async (id) => {
     try {
-      await fetch(`/api/tasks/${id}`, { method: 'DELETE' });
-      setTasks(prev => prev.filter(task => task.id !== id));
+      await fetch(`/api/tasks/${id}`, { 
+        method: 'DELETE',
+       });
+      setTasks(tasks.filter(task => task.id !== id));
     } catch (err) {
       console.error('❌ Error deleting task:', err);
     }
