@@ -12,7 +12,7 @@ function App() {
   }, []);
         const fetchTasks = async () => {
           try {
-        const res = await fetch('/api/tasks');
+        const res = await fetch('http://localhost:5000/tasks');
         const data = await res.json();
         setTasks(data);
       } catch (err) {
@@ -27,7 +27,7 @@ function App() {
     if (!input.trim()) {
 
     try {
-      const res = await fetch('/api/tasks', {
+      const res = await fetch('http://localhost:5000/tasks', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title: input.trim() }),
@@ -45,7 +45,7 @@ function App() {
   // 🔄 Toggle complete on backend
   const toggleComplete = async (id, currentStatus) => {
     try {
-      const res = await fetch(`/api/tasks/${id}`, {
+      const res = await fetch(`http://localhost:5000/api/tasks/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ completed: !currentStatus })
